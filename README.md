@@ -5,4 +5,5 @@
 
 ```
 docker-compose run --rm aws-cli-container /bin/bash
+sam init --runtime python3.8
 ```
