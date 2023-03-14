@@ -1,13 +1,5 @@
 # stackies-app-api
 
-## aws-cli
-※ // AWS ACCESS KEY等は、Slack#ブックマーク参照
-
-```
-docker-compose run --rm aws-cli-container /bin/bash
-sam init --runtime python3.8
-```
-
 ## AWS SAMを使ったAWSサーバーレスサービスのローカル実行方法
 https://rooter.jp/programming/python/aws-sam/
 
@@ -34,6 +26,11 @@ $ curl "http://localhost:3000/members" -X POST -d '{"name": "fukushima"}'
 登録できているか確認
 $ aws dynamodb scan --table-name members --endpoint-url "http://localhost:8000"
 
-
-
 ```
+
+# 以下不要
+
+## aws-cli
+※ // AWS ACCESS KEY等は、Slack#ブックマーク参照
+"aws-cli"フォルダは今は使用していません。
+
