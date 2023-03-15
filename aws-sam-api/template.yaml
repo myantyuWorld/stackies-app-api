@@ -22,6 +22,19 @@ Resources:
           Properties:
             Path: /members
             Method: post
+  GetMemberFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: member-get/src/
+      Handler: app.get_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /members
+            Method: get
   PostMemberFunctionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -50,6 +63,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - dynamodb:PutItem
+                  - dynamodb:Scan
                 Resource: !GetAtt Table.Arn
             
   Table:
