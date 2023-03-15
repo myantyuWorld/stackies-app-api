@@ -65,7 +65,7 @@ Resources:
                   - dynamodb:PutItem
                   - dynamodb:Scan
                 Resource: !GetAtt Table.Arn
-            
+# TODO : １つのCloudFormationテンプレートに、複数のテーブルを宣言する | https://dev.classmethod.jp/articles/use-dependson-on-cloudformation/
   Table:
     Type: AWS::DynamoDB::Table
     Properties:
