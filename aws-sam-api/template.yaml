@@ -35,6 +35,19 @@ Resources:
           Properties:
             Path: /members
             Method: get
+  GetTechnologyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: technology/src/
+      Handler: app.handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /technologies
+            Method: get
   PostMemberFunctionRole:
     Type: AWS::IAM::Role
     Properties:
