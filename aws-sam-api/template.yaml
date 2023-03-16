@@ -114,8 +114,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: name
           AttributeType: S
-        - AttributeName: category
-          AttributeType: S
         - AttributeName: user_id
           AttributeType: S
       BillingMode: PAY_PER_REQUEST

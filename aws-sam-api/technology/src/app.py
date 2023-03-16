@@ -5,11 +5,11 @@ client = boto3.client('dynamodb')
 
 def handler(event, context):
     # TODO : 整形して返す
-    result = client.put_item(TableName="technologies")   
+    result = client.scan(TableName="technologies")   
 
     response = {
         "statusCode": 200,
-        "body": "hello technology api"
+        "body": json.dumps(result)
     }
 
     return response
