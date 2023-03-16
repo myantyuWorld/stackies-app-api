@@ -77,3 +77,37 @@ Resources:
         - AttributeName: name
           KeyType: HASH
       TableName: members
+  # 技術マスタ
+  TechnologyMasterTable: 
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: technologies
+      AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: category
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+        - AttributeName: category
+          KeyType: RANGE
+  # 経験技術マスタ
+  ExperienceTechnologyMasterTable: 
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: experience_technologies
+      AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: category
+          AttributeType: S
+        - AttributeName: user_id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+        - AttributeName: user_id
+          KeyType: RANGE
