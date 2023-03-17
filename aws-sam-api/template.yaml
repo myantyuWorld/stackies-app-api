@@ -25,7 +25,7 @@ Resources:
   GetMemberFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: member-get/src/
+      CodeUri: src/
       Handler: app.get_handler
       Role: !GetAtt PostMemberFunctionRole.Arn
       Runtime: python3.9

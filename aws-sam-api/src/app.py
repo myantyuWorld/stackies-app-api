@@ -21,3 +21,13 @@ def post_handler(event, context):
     }
 
     return response
+
+def get_handler(event, context):
+    result = client.scan(TableName="members")
+    print(result)
+    response = {
+        "statusCode": 200,
+        "body": json.dumps(result["Items"])
+    }
+
+    return response
