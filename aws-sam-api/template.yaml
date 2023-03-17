@@ -48,6 +48,33 @@ Resources:
           Properties:
             Path: /technologies
             Method: get
+  # 経験技術API
+  GetExperienceTechnologyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: experience_technology/src/
+      Handler: app.get_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /experience_technology
+            Method: get
+  PostExperienceTechnologyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: experience_technology/src/
+      Handler: app.post_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /experience_technology
+            Method: post
   PostMemberFunctionRole:
     Type: AWS::IAM::Role
     Properties:
