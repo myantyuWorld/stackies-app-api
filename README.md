@@ -36,7 +36,7 @@ $ aws dynamodb list-tables --endpoint-url 'http://localhost:8000'
 # localのdynamodbコンテナ起動
 $ docker-compose up -d
 # API Gatewayのローカル起動
-$ sam local start-api --docker-network lambda-local
+$ sam local start-api --docker-network lambda-local --skip-pull-image --debug
 # データ登録(dynamodb SDK)
 $ aws dynamodb put-item \
     --table-name technologies \
@@ -47,6 +47,7 @@ $ aws dynamodb put-item \
 # データ登録(REST API)
 $ curl "http://localhost:3000/members" -X POST -d '{"name": "fukushima"}'
 $ curl "http://localhost:3000/technologies" -X POST -d '{"name": "C#", "category" : "1"}'
+$ curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
 # 登録できているか確認
 $ aws dynamodb scan --table-name members --endpoint-url "http://localhost:8000"
 ```
