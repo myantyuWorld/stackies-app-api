@@ -10,12 +10,23 @@ import boto3
 client = boto3.client('dynamodb')
 
 # curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
+
+
 def post_handler(event, context):
     # リクエストbody取得
     body = json.loads(event["body"])
+    print(body)
+
+    user_id = body["user_id"]
     name = body["name"]
+    category = body["category"]
     # db登録
-    result = client.put_item(TableName="experience_technologies", Item={"name": {"S": name}})
+    result = client.put_item(TableName="experience_technologies",
+                             Item={
+                                 "name": {"S": name},
+                                 "user_id": {"S": user_id},
+                                 "category": {"S": category}
+                             })
     response = {
         "statusCode": 200,
         "body": json.dumps(result)
@@ -23,9 +34,33 @@ def post_handler(event, context):
 
     return response
 
+
+'''
+[
+  {
+    "category": {
+      "S": "1"
+    },
+    "name": {
+      "S": "typescript"
+    }
+  },
+  {
+    "category": {
+      "S": "1"
+    },
+    "name": {
+      "S": "C#"
+    }
+  },
+  ...
+]
+'''
 # curl "http://localhost:3000/experience_technology"
+
+
 def get_handler(event, context):
-    result = client.scan(TableName="experience_technologies")   
+    result = client.scan(TableName="experience_technologies")
 
     response = {
         "statusCode": 200,

@@ -3,6 +3,27 @@ import boto3
 
 client = boto3.client('dynamodb')
 
+'''
+[
+  {
+    "category": {
+      "S": "1"
+    },
+    "name": {
+      "S": "typescript"
+    }
+  },
+  {
+    "category": {
+      "S": "1"
+    },
+    "name": {
+      "S": "C#"
+    }
+  },
+  ...
+]
+'''
 def handler(event, context):
     result = client.scan(TableName="technologies")   
 
