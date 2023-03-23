@@ -20,12 +20,14 @@ def post_handler(event, context):
     user_id = body["user_id"]
     name = body["name"]
     category = body["category"]
+    level = body["level"]
     # db登録
     result = client.put_item(TableName="experience_technologies",
                              Item={
                                  "name": {"S": name},
                                  "user_id": {"S": user_id},
-                                 "category": {"S": category}
+                                 "category": {"S": category},
+                                 "level": {"S": level},
                              })
     response = {
         "statusCode": 200,
