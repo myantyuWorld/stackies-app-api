@@ -23,7 +23,7 @@ $ aws dynamodb create-table --table-name technologies \
   
 $ aws dynamodb create-table --table-name experience_technologies \
   --attribute-definitions AttributeName=name,AttributeType=S AttributeName=user_id,AttributeType=S \
-  --key-schema AttributeName=name,KeyType=HASH AttributeName=user_id,KeyType=RANGE  \
+  --key-schema AttributeName=user_id,KeyType=HASH AttributeName=name,KeyType=RANGE  \
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
   --endpoint-url "http://localhost:8000"
 テーブルの作成確認
@@ -50,6 +50,7 @@ $ curl "http://localhost:3000/technologies" -X POST -d '{"name": "C#", "category
 $ curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
 # 登録できているか確認
 $ aws dynamodb scan --table-name members --endpoint-url "http://localhost:8000"
+aws dynamodb describe-table --table-name experience_technologies --endpoint-url "http://localhost:8000"
 ```
 
 ## deploy
