@@ -52,6 +52,12 @@ $ curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"mya
 $ aws dynamodb scan --table-name members --endpoint-url "http://localhost:8000"
 ```
 
+## deploy
+```
+$ cd aws-sam-api
+$ sam deploy
+```
+
 # 以下不要
 
 ## aws-cli
