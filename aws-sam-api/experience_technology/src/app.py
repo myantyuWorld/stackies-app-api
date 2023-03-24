@@ -15,7 +15,6 @@ client = boto3.client('dynamodb')
 def post_handler(event, context):
     # リクエストbody取得
     body = json.loads(event["body"])
-    print(body)
 
     user_id = body["user_id"]
     name = body["name"]
