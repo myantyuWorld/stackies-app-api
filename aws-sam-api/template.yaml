@@ -134,18 +134,14 @@ Resources:
         - AttributeName: category
           KeyType: RANGE
   # 経験技術マスタ
-  ExperienceTechnologyMasterTable: 
+  ExperienceTechnologyTable: 
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: experience_technologies
+      TableName: experience_technology
       AttributeDefinitions:
-        - AttributeName: name
-          AttributeType: S
         - AttributeName: user_id
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: user_id
           KeyType: HASH
-        - AttributeName: name
-          KeyType: RANGE

@@ -10,7 +10,7 @@ from boto3.dynamodb.conditions import Key, Attr
 # client = boto3.client('dynamodb', endpoint_url = "http://dynamodb-local:8000")
 client = boto3.client('dynamodb')
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('experience_technologies')
+table = dynamodb.Table('experience_technology')
 
 # curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
 
@@ -18,16 +18,17 @@ table = dynamodb.Table('experience_technologies')
 def post_handler(event, context):
     # リクエストbody取得
     body = json.loads(event["body"])
+    print(body)
 
     user_id = body["user_id"]
     name = body["name"]
     category = body["category"]
     level = body["level"]
     # db登録
-    result = client.put_item(TableName="experience_technologies",
+    result = client.put_item(TableName="experience_technology",
                              Item={
-                                 "name": {"S": name},
                                  "user_id": {"S": user_id},
+                                 "name": {"S": name},
                                  "category": {"S": category},
                                  "level": {"S": level},
                              })
@@ -46,13 +47,12 @@ def post_handler(event, context):
 
 
 def get_handler(event, context):
-    result = client.scan(TableName="experience_technologies")
-    res = table.query(KeyConditionExpression=Key('id_device').eq('myantyuWorld'))
+    res = table.query(KeyConditionExpression=Key('user_id').eq('myantyuWorld'))
     print(res)
 
     response = {
         "statusCode": 200,
-        "body": json.dumps(result["Items"])
+        "body": json.dumps(res['Items'])
     }
 
     return response
