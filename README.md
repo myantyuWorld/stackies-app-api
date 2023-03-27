@@ -22,8 +22,8 @@ $ aws dynamodb create-table --table-name technologies \
   --endpoint-url "http://localhost:8000"
   
 $ aws dynamodb create-table --table-name experience_technologies \
-  --attribute-definitions AttributeName=name,AttributeType=S AttributeName=user_id,AttributeType=S \
-  --key-schema AttributeName=user_id,KeyType=HASH AttributeName=name,KeyType=RANGE  \
+  --attribute-definitions AttributeName=user_id,AttributeType=S \
+  --key-schema AttributeName=user_id,KeyType=HASH \
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
   --endpoint-url "http://localhost:8000"
 テーブルの作成確認
