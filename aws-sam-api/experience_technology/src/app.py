@@ -47,7 +47,9 @@ def post_handler(event, context):
 
 
 def get_handler(event, context):
-    res = table.query(KeyConditionExpression=Key('user_id').eq('myantyuWorld'))
+    print(event["queryStringParameters"]["user_id"])
+    user_id = event["queryStringParameters"]["user_id"]
+    res = table.query(KeyConditionExpression=Key('user_id').eq(user_id))
     print(res)
 
     response = {
