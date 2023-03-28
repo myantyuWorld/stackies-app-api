@@ -75,6 +75,33 @@ Resources:
           Properties:
             Path: /experience_technology
             Method: post
+  # 基本情報API
+  GetBaseInfoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: base_info/src/
+      Handler: app.get_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /base_info
+            Method: get
+  PostBaseInfoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: base_info/src/
+      Handler: app.post_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /base_info
+            Method: post
   PostMemberFunctionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -138,6 +165,18 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: experience_technology
+      AttributeDefinitions:
+        - AttributeName: user_id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+  # 基本情報マスタ
+  BaseInfoTable: 
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: base_info
       AttributeDefinitions:
         - AttributeName: user_id
           AttributeType: S
