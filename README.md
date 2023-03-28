@@ -48,6 +48,7 @@ $ aws dynamodb put-item \
 $ curl "http://localhost:3000/members" -X POST -d '{"name": "fukushima"}'
 $ curl "http://localhost:3000/technologies" -X POST -d '{"name": "C#", "category" : "1"}'
 $ curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
+$ curl "http://localhost:3000/base_info" -X POST -d '{"user_id":"myantyuWorld","initial":"C#","barthday":"1","last_educational_background":"3","qualification":"応用情報技術者、AWS Certified Cloud Practitioner（CLF）","self_pr":"hogehogeふがふが"}'
 # 登録できているか確認
 $ aws dynamodb scan --table-name members --endpoint-url "http://localhost:8000"
 aws dynamodb describe-table --table-name experience_technologies --endpoint-url "http://localhost:8000"
