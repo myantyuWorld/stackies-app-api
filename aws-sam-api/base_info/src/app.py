@@ -36,7 +36,7 @@ def post_handler(event, context):
                                  "last_educational_background": {"S": last_educational_background},
                                  "qualification": {"S": qualification},
                                  "self_pr": {"S": self_pr},
-                                 "updated_at": {"S": datetime.datetime.now()},
+                                 "updated_at": {"S": str(datetime.datetime.now())},
                              })
     response = {
         "statusCode": 200,
