@@ -9,25 +9,22 @@ import boto3
 # client = boto3.client('dynamodb', endpoint_url = "http://dynamodb-local:8000")
 client = boto3.client('dynamodb')
 
-def post_handler(event, context):
-    # リクエストbody取得
-    body = json.loads(event["body"])
-    name = body["name"]
-    # db登録
-    result = client.put_item(TableName="members", Item={"name": {"S": name}})
+'''
+sam localでCORS対策
+https://minerva.mamansoft.net/Notes/sam+local%E3%81%A7CORS%E3%82%92%E8%A7%A3%E6%B6%88
+-> https://github.com/aws/aws-sam-cli/issues/323
+'''
+def options_handler(event, context):
+    headers = {
+            'Access-Control-Allow-Headers' : 'Content-Type',
+            'Access-Control-Allow-Origin'  : '*',
+            'Access-Control-Allow-Methods' : 'GET,OPTIONS,PUT,POST,DELETE'
+        }
     response = {
         "statusCode": 200,
-        "body": json.dumps(result)
+        'headers': headers,
+        "body": ''
     }
 
     return response
 
-def get_handler(event, context):
-    result = client.scan(TableName="members")
-    print(result)
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(result["Items"])
-    }
-
-    return response
