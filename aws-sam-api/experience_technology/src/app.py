@@ -66,27 +66,25 @@ def create_error_response(body, **kwargs):
 def post_handler(event, context):
     print('call post ')
     if event['httpMethod'] == 'OPTIONS':
-        # logger.info('handle the options method.')
         return create_success_response(
             { 'message': 'successfully: called options method.' },
             methods='GET,OPTIONS,PUT,POST,DELETE'
         )
     # リクエストbody取得
     body = json.loads(event["body"])
-    print(body)
+    print(body['user_id'])
+    print(body['data'])
+    for technology in body['data']:
+        print(technology) # {'name': 'VSCode', 'category': '3', 'level': '1'}
+        # # db登録
+        result = client.put_item(TableName="experience_technology",
+                                 Item={
+                                     "user_id": {"S": body['user_id']},
+                                     "name": {"S": technology['name']},
+                                     "category": {"S": technology['category']},
+                                     "level": {"S": technology['level']},
+                                 })
 
-    # user_id = body["user_id"]
-    # name = body["name"]
-    # category = body["category"]
-    # level = body["level"]
-    # # db登録
-    # result = client.put_item(TableName="experience_technology",
-    #                          Item={
-    #                              "user_id": {"S": user_id},
-    #                              "name": {"S": name},
-    #                              "category": {"S": category},
-    #                              "level": {"S": level},
-    #                          })
     headers = {
         'Access-Control-Allow-Headers' : 'Content-Type',
         'Access-Control-Allow-Origin'  : '*',
