@@ -11,7 +11,7 @@ from boto3.dynamodb.conditions import Key, Attr
 # client = boto3.client('dynamodb', endpoint_url = "http://dynamodb-local:8000")
 client = boto3.client('dynamodb')
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('experience_technology')
+table = dynamodb.Table('experience_technologies')
 
 # curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
 # API Gatewayのルールに則った成功の response を生成する
@@ -77,7 +77,7 @@ def post_handler(event, context):
     for technology in body['data']:
         print(technology) # {'name': 'VSCode', 'category': '3', 'level': '1'}
         # # db登録
-        result = client.put_item(TableName="experience_technology",
+        result = client.put_item(TableName="experience_technologies",
                                  Item={
                                      "user_id": {"S": body['user_id']},
                                      "name": {"S": technology['name']},

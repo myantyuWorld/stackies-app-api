@@ -22,8 +22,6 @@ Resources:
             Properties:
               Path: /{cors+}
               Method: OPTIONS
-              Auth:
-                Authorizer: NONE
   # PostMemberFunction:
   #   Type: AWS::Serverless::Function
   #   Properties:
@@ -172,17 +170,21 @@ Resources:
         - AttributeName: name
           KeyType: HASH
   # 経験技術マスタ
-  ExperienceTechnologyTable: 
+  ExperienceTechnologiesTable: 
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: experience_technology
+      TableName: experience_technologies
       AttributeDefinitions:
         - AttributeName: user_id
+          AttributeType: S
+        - AttributeName: name
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: user_id
           KeyType: HASH
+        - AttributeName: name
+          KeyType: RANGE
   # 基本情報マスタ
   BaseInfoTable: 
     Type: AWS::DynamoDB::Table
