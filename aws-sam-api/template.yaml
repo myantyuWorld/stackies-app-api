@@ -22,32 +22,6 @@ Resources:
             Properties:
               Path: /{cors+}
               Method: OPTIONS
-  # PostMemberFunction:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     CodeUri: src/
-  #     Handler: app.post_handler
-  #     Role: !GetAtt PostMemberFunctionRole.Arn
-  #     Runtime: python3.9
-  #     Events:
-  #       HelloWorld:
-  #         Type: Api
-  #         Properties:
-  #           Path: /members
-  #           Method: post
-  # GetMemberFunction:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     CodeUri: src/
-  #     Handler: app.get_handler
-  #     Role: !GetAtt PostMemberFunctionRole.Arn
-  #     Runtime: python3.9
-  #     Events:
-  #       HelloWorld:
-  #         Type: Api
-  #         Properties:
-  #           Path: /members
-  #           Method: get
   GetTechnologyFunction:
     Type: AWS::Serverless::Function
     Properties:
