@@ -13,31 +13,41 @@ client = boto3.client('dynamodb')
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('base_info')
 
-# curl "http://localhost:3000/experience_technology" -X POST -d '{"user_id":"myantyuWorld", "name": "C#", "category" : "1", "level":"3"}'
-
-
 def post_handler(event, context):
     # リクエストbody取得
     body = json.loads(event["body"])
-    print(body)
 
-    user_id = body["user_id"]
-    initial = body["initial"]
-    barthday = body["barthday"]
-    last_educational_background = body["last_educational_background"]
-    qualification = body["qualification"]
-    self_pr = body["self_pr"]
-    # db登録
+    baseinfo = body["data"]["baseinfo"]
+    experienceRateInfo = body["data"]["experienceRateInfo"]
+
+    print(baseinfo)
+    print(experienceRateInfo)
+
+    user_id = baseinfo["user_id"]
+    initial = baseinfo["initial"]
+    barthday = baseinfo["birth_date"]
+    last_educational_background = baseinfo["last_educational_background"]
+    qualification = baseinfo["qualification"]
+    self_pr = baseinfo["self_pr"]
+    # # db登録
     result = client.put_item(TableName="base_info",
                              Item={
                                  "user_id": {"S": user_id},
                                  "initial": {"S": initial},
-                                 "barthday": {"S": barthday},
+                                 "birth_date": {"S": barthday},
                                  "last_educational_background": {"S": last_educational_background},
                                  "qualification": {"S": qualification},
                                  "self_pr": {"S": self_pr},
-                                 "updated_at": {"S": str(datetime.datetime.now())},
                              })
+    for technology in experienceRateInfo:
+        # # db登録
+        result = client.put_item(TableName="experience_technologies",
+                                 Item={
+                                     "user_id": {"S": user_id},
+                                     "name": {"S": technology['name']},
+                                     "category": {"S": technology['category']},
+                                     "level": {"S": str(technology['level'])},
+                                 })
     response = {
         "statusCode": 200,
         "body": json.dumps(result)
@@ -47,10 +57,7 @@ def post_handler(event, context):
 
 
 '''
-[{"category": {"S": "1"}, "user_id": {"S": "myantyuWorld"}, "name": {"S": "C#"}, "level": {"S": "3"}}]
 '''
-# curl "http://localhost:3000/experience_technology"
-
 
 def get_handler(event, context):
     print(event["queryStringParameters"]["user_id"])
