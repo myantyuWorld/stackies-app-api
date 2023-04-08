@@ -63,10 +63,16 @@ def get_handler(event, context):
     print(event["queryStringParameters"]["user_id"])
     user_id = event["queryStringParameters"]["user_id"]
     res = table.query(KeyConditionExpression=Key('user_id').eq(user_id))
-    print(res)
+
+    headers = {
+            'Access-Control-Allow-Headers' : 'Content-Type',
+            'Access-Control-Allow-Origin'  : '*',
+            'Access-Control-Allow-Methods' : 'GET'
+        }
 
     response = {
         "statusCode": 200,
+        'headers': headers,
         "body": json.dumps(res['Items'])
     }
 
