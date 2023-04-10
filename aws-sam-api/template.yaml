@@ -89,6 +89,33 @@ Resources:
           Properties:
             Path: /base_info
             Method: post
+  # 案件対応履歴登録API
+  GetProjectInfoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: project_info/src/
+      Handler: app.get_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /project_info
+            Method: get
+  PostProjectInfoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: project_info/src/
+      Handler: app.post_handler
+      Role: !GetAtt PostMemberFunctionRole.Arn
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /project_info
+            Method: post
   PostMemberFunctionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -171,3 +198,19 @@ Resources:
       KeySchema:
         - AttributeName: user_id
           KeyType: HASH
+  # 案件対応情報マスタ
+  ProjectInfoTable: 
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: project_info
+      AttributeDefinitions:
+        - AttributeName: user_id
+          AttributeType: S
+        - AttributeName: project_id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+        - AttributeName: project_id
+          KeyType: RANGE
