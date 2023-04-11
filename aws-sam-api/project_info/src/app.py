@@ -108,9 +108,31 @@ def post_handler(event, context):
     body = json.loads(event["body"])
     print(body)
 
+    user_id = body["user_id"]
+    data = body["data"]
+    print(data)
+    t_delta = datetime.timedelta(hours=9)
+    JST = datetime.timezone(t_delta, 'JST')
+    now = datetime.datetime.now(JST)
+    # # db登録
+    result = client.put_item(TableName="project_info",
+                                Item={
+                                    "user_id": {"S": user_id},
+                                    "project_id": {"S":  f'{now:%Y%m%d%H%M%S}' },
+                                    "industries": {"S": data['industries']},
+                                    "systemName": {"S": data['systemName']},
+                                    "period": {"S": data['period']},
+                                    "businessOverview": {"S": data['businessOverview']},
+                                    "language": {"S": data['language']}, # TODO : 配列のため、エラー
+                                    "tools": {"S": data['tools']},# TODO : 配列のため、エラー
+                                    "infra": {"S": data['infra']},# TODO : 配列のため、エラー
+                                    "workProcess": {"S": data['workProcess']},
+                                    "role": {"S": data['role']},
+                                })
+
     response = {
         "statusCode": 200,
-        "body": json.dumps(body)
+        "body": json.dumps(result)
     }
 
     return response
