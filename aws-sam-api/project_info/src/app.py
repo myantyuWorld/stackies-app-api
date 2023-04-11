@@ -63,6 +63,40 @@ def create_error_response(body, **kwargs):
     }
 
 
+'''
+# フロントからのリクエスト
+{
+  "industries": "1",
+  "systemName": "テスト",
+  "period": "20230201",
+  "businessOverview": "test",
+  "language": [
+    "C#",
+    "Python3.9",
+    "Java",
+    "TypeScript"
+  ],
+  "tools": [
+    "VSCode"
+  ],
+  "infra": [
+    "AWS Lambda"
+  ],
+  "workProcess": {
+    "rd": true,
+    "bd": true,
+    "dd": true,
+    "cd": true,
+    "ut": false,
+    "it": false,
+    "op": false
+  },
+  "role": "0"
+}
+# 上記にプラスして、
+user_id, 
+project_info_id(システム日付など)を付与
+'''
 def post_handler(event, context):
     if event['httpMethod'] == 'OPTIONS':
         return create_success_response(
