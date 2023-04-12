@@ -123,10 +123,10 @@ def post_handler(event, context):
                                     "systemName": {"S": data['systemName']},
                                     "period": {"S": data['period']},
                                     "businessOverview": {"S": data['businessOverview']},
-                                    "language": {"S": data['language']}, # TODO : 配列のため、エラー
-                                    "tools": {"S": data['tools']},# TODO : 配列のため、エラー
-                                    "infra": {"S": data['infra']},# TODO : 配列のため、エラー
-                                    "workProcess": {"S": data['workProcess']},
+                                    "language": {"S": ','.join(data['language'])},
+                                    "tools": {"S": ','.join(data['tools'])},
+                                    "infra": {"S": ','.join(data['infra'])},
+                                    "workProcess": {"S": str(data['workProcess'])},
                                     "role": {"S": data['role']},
                                 })
 
