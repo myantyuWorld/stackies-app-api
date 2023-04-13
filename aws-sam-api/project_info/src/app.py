@@ -110,7 +110,6 @@ def post_handler(event, context):
 
     user_id = body["user_id"]
     data = body["data"]
-    print(data)
     t_delta = datetime.timedelta(hours=9)
     JST = datetime.timezone(t_delta, 'JST')
     now = datetime.datetime.now(JST)
@@ -126,7 +125,7 @@ def post_handler(event, context):
                                     "language": {"S": ','.join(data['language'])},
                                     "tools": {"S": ','.join(data['tools'])},
                                     "infra": {"S": ','.join(data['infra'])},
-                                    "workProcess": {"S": str(data['workProcess'])},
+                                    "workProcess": {"S": json.dumps(data['workProcess'])},
                                     "role": {"S": data['role']},
                                 })
 
