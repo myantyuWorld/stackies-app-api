@@ -13,7 +13,63 @@ client = boto3.client('dynamodb')
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('base_info')
 
+# API Gatewayのルールに則った成功の response を生成する
+def create_success_response(body, **kwargs):
+    origin  = '*'
+    methods = 'GET'
+
+    for k, v in kwargs.items():
+        if k == 'origin'  : origin  = v
+        if k == 'methods' : methods = v 
+
+    headers = {
+        'Access-Control-Allow-Headers' : 'Content-Type',
+        'Access-Control-Allow-Origin'  : origin,
+        'Access-Control-Allow-Methods' : methods
+    }
+
+    # Logger.info(
+    #     'return values headers = {}, body = {}, origin = {}, methods = {}'
+    #         .format(headers, body, origin, methods)
+    # )
+
+    return {
+        'isBase64Encoded': False,
+        'statusCode'     : 200,
+        'headers'        : headers,
+        'body'           : json.dumps(body)
+    }
+
+# API Gatewayのルールに則った失敗の response を生成する
+def create_error_response(body, **kwargs):
+    origin  = '*'
+    methods = 'GET'
+
+    for k, v in kwargs.items():
+        if k == 'origin'  : origin  = v
+        if k == 'methods' : methods = v 
+
+    headers = {
+        'Access-Control-Allow-Headers' : 'Content-Type',
+        'Access-Control-Allow-Origin'  : origin,
+        'Access-Control-Allow-Methods' : methods
+    }
+
+    return {
+        'isBase64Encoded': False,
+        'statusCode': 599,
+        'headers': headers,
+        'body': json.dumps(body)
+    }
+
+
 def post_handler(event, context):
+    if event['httpMethod'] == 'OPTIONS':
+        return create_success_response(
+            { 'message': 'successfully: called options method.' },
+            methods='GET,OPTIONS,PUT,POST,DELETE'
+        )
+    
     # リクエストbody取得
     body = json.loads(event["body"])
 
