@@ -141,9 +141,19 @@ def post_handler(event, context):
 '''
 
 def get_handler(event, context):
+    print("========================")
+    print("call project_info API")
+    print("========================")
     print(event["queryStringParameters"]["user_id"])
     user_id = event["queryStringParameters"]["user_id"]
-    res = table.query(KeyConditionExpression=Key('user_id').eq(user_id))
+    print(user_id)
+    if not user_id == "":
+        res = table.query(KeyConditionExpression=Key('user_id').eq(user_id))
+    else:
+        print("else")
+        res = client.scan(TableName="project_info") 
+        print(res['Items'])
+        print("else")
 
     headers = {
             'Access-Control-Allow-Headers' : 'Content-Type',
