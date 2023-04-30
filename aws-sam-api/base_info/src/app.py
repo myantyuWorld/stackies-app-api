@@ -80,18 +80,12 @@ def post_handler(event, context):
     print(experienceRateInfo)
 
     user_id = baseinfo["user_id"]
-    initial = baseinfo["initial"]
-    barthday = baseinfo["birth_date"]
-    last_educational_background = baseinfo["last_educational_background"]
     qualification = baseinfo["qualification"]
     self_pr = baseinfo["self_pr"]
     # # db登録
     result = client.put_item(TableName="base_info",
                              Item={
                                  "user_id": {"S": user_id},
-                                 "initial": {"S": initial},
-                                 "birth_date": {"S": barthday},
-                                 "last_educational_background": {"S": last_educational_background},
                                  "qualification": {"S": qualification},
                                  "self_pr": {"S": self_pr},
                              })
